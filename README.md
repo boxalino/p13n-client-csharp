@@ -1,5 +1,5 @@
-boxalino Personalization client for Ruby
-========================================
+boxalino Personalization client for C#
+======================================
 
 Overview
 --------
@@ -9,7 +9,8 @@ This library provides access to various functions of the boxalino Personalizatio
 Usage
 -----
 
-To use the Personalization client in your Ruby project, take the following steps:
+To use the Personalization client in your C# project, take the following steps:
 
-#1) Copy lib/ into your Ruby codebase
-#2) require 'p13n_service'
+#1) Copy lib/ into your C# codebase
+#2) using P13nService;
+
