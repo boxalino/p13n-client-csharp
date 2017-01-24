@@ -16,54 +16,37 @@ using Thrift.Protocol;
 using Thrift.Transport;
 
 
-/// <summary>
-/// unique identifier of the customer
-/// </summary>
 #if !SILVERLIGHT
 [Serializable]
 #endif
-public partial class UserRecord : TBase
+public partial class ProfileContext : TBase
 {
-  private string _username;
-  private string _apiKey;
-  private string _apiSecret;
+  private string _profileId;
+  private RequestContext _requestContext;
 
-  public string Username
+  public string ProfileId
   {
     get
     {
-      return _username;
+      return _profileId;
     }
     set
     {
-      __isset.username = true;
-      this._username = value;
+      __isset.profileId = true;
+      this._profileId = value;
     }
   }
 
-  public string ApiKey
+  public RequestContext RequestContext
   {
     get
     {
-      return _apiKey;
+      return _requestContext;
     }
     set
     {
-      __isset.apiKey = true;
-      this._apiKey = value;
-    }
-  }
-
-  public string ApiSecret
-  {
-    get
-    {
-      return _apiSecret;
-    }
-    set
-    {
-      __isset.apiSecret = true;
-      this._apiSecret = value;
+      __isset.requestContext = true;
+      this._requestContext = value;
     }
   }
 
@@ -73,12 +56,11 @@ public partial class UserRecord : TBase
   [Serializable]
   #endif
   public struct Isset {
-    public bool username;
-    public bool apiKey;
-    public bool apiSecret;
+    public bool profileId;
+    public bool requestContext;
   }
 
-  public UserRecord() {
+  public ProfileContext() {
   }
 
   public void Read (TProtocol iprot)
@@ -98,21 +80,15 @@ public partial class UserRecord : TBase
         {
           case 1:
             if (field.Type == TType.String) {
-              Username = iprot.ReadString();
+              ProfileId = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
-          case 10:
-            if (field.Type == TType.String) {
-              ApiKey = iprot.ReadString();
-            } else { 
-              TProtocolUtil.Skip(iprot, field.Type);
-            }
-            break;
-          case 20:
-            if (field.Type == TType.String) {
-              ApiSecret = iprot.ReadString();
+          case 2:
+            if (field.Type == TType.Struct) {
+              RequestContext = new RequestContext();
+              RequestContext.Read(iprot);
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -135,31 +111,23 @@ public partial class UserRecord : TBase
     oprot.IncrementRecursionDepth();
     try
     {
-      TStruct struc = new TStruct("UserRecord");
+      TStruct struc = new TStruct("ProfileContext");
       oprot.WriteStructBegin(struc);
       TField field = new TField();
-      if (Username != null && __isset.username) {
-        field.Name = "username";
+      if (ProfileId != null && __isset.profileId) {
+        field.Name = "profileId";
         field.Type = TType.String;
         field.ID = 1;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(Username);
+        oprot.WriteString(ProfileId);
         oprot.WriteFieldEnd();
       }
-      if (ApiKey != null && __isset.apiKey) {
-        field.Name = "apiKey";
-        field.Type = TType.String;
-        field.ID = 10;
+      if (RequestContext != null && __isset.requestContext) {
+        field.Name = "requestContext";
+        field.Type = TType.Struct;
+        field.ID = 2;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(ApiKey);
-        oprot.WriteFieldEnd();
-      }
-      if (ApiSecret != null && __isset.apiSecret) {
-        field.Name = "apiSecret";
-        field.Type = TType.String;
-        field.ID = 20;
-        oprot.WriteFieldBegin(field);
-        oprot.WriteString(ApiSecret);
+        RequestContext.Write(oprot);
         oprot.WriteFieldEnd();
       }
       oprot.WriteFieldStop();
@@ -172,25 +140,19 @@ public partial class UserRecord : TBase
   }
 
   public override string ToString() {
-    StringBuilder __sb = new StringBuilder("UserRecord(");
+    StringBuilder __sb = new StringBuilder("ProfileContext(");
     bool __first = true;
-    if (Username != null && __isset.username) {
+    if (ProfileId != null && __isset.profileId) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("Username: ");
-      __sb.Append(Username);
+      __sb.Append("ProfileId: ");
+      __sb.Append(ProfileId);
     }
-    if (ApiKey != null && __isset.apiKey) {
+    if (RequestContext != null && __isset.requestContext) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("ApiKey: ");
-      __sb.Append(ApiKey);
-    }
-    if (ApiSecret != null && __isset.apiSecret) {
-      if(!__first) { __sb.Append(", "); }
-      __first = false;
-      __sb.Append("ApiSecret: ");
-      __sb.Append(ApiSecret);
+      __sb.Append("RequestContext: ");
+      __sb.Append(RequestContext== null ? "<null>" : RequestContext.ToString());
     }
     __sb.Append(")");
     return __sb.ToString();

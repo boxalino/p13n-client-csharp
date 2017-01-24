@@ -16,27 +16,23 @@ using Thrift.Protocol;
 using Thrift.Transport;
 
 
-/// <summary>
-/// list of personalized variants. Item's index corresponds to the index of the
-/// ChoiceInquiry
-/// </summary>
 #if !SILVERLIGHT
 [Serializable]
 #endif
-public partial class ChoiceResponse : TBase
+public partial class AutocompleteRequestBundle : TBase
 {
-  private List<Variant> _variants;
+  private List<AutocompleteRequest> _requests;
 
-  public List<Variant> Variants
+  public List<AutocompleteRequest> Requests
   {
     get
     {
-      return _variants;
+      return _requests;
     }
     set
     {
-      __isset.variants = true;
-      this._variants = value;
+      __isset.requests = true;
+      this._requests = value;
     }
   }
 
@@ -46,10 +42,10 @@ public partial class ChoiceResponse : TBase
   [Serializable]
   #endif
   public struct Isset {
-    public bool variants;
+    public bool requests;
   }
 
-  public ChoiceResponse() {
+  public AutocompleteRequestBundle() {
   }
 
   public void Read (TProtocol iprot)
@@ -67,17 +63,17 @@ public partial class ChoiceResponse : TBase
         }
         switch (field.ID)
         {
-          case 1:
+          case 11:
             if (field.Type == TType.List) {
               {
-                Variants = new List<Variant>();
-                TList _list113 = iprot.ReadListBegin();
-                for( int _i114 = 0; _i114 < _list113.Count; ++_i114)
+                Requests = new List<AutocompleteRequest>();
+                TList _list170 = iprot.ReadListBegin();
+                for( int _i171 = 0; _i171 < _list170.Count; ++_i171)
                 {
-                  Variant _elem115;
-                  _elem115 = new Variant();
-                  _elem115.Read(iprot);
-                  Variants.Add(_elem115);
+                  AutocompleteRequest _elem172;
+                  _elem172 = new AutocompleteRequest();
+                  _elem172.Read(iprot);
+                  Requests.Add(_elem172);
                 }
                 iprot.ReadListEnd();
               }
@@ -103,19 +99,19 @@ public partial class ChoiceResponse : TBase
     oprot.IncrementRecursionDepth();
     try
     {
-      TStruct struc = new TStruct("ChoiceResponse");
+      TStruct struc = new TStruct("AutocompleteRequestBundle");
       oprot.WriteStructBegin(struc);
       TField field = new TField();
-      if (Variants != null && __isset.variants) {
-        field.Name = "variants";
+      if (Requests != null && __isset.requests) {
+        field.Name = "requests";
         field.Type = TType.List;
-        field.ID = 1;
+        field.ID = 11;
         oprot.WriteFieldBegin(field);
         {
-          oprot.WriteListBegin(new TList(TType.Struct, Variants.Count));
-          foreach (Variant _iter116 in Variants)
+          oprot.WriteListBegin(new TList(TType.Struct, Requests.Count));
+          foreach (AutocompleteRequest _iter173 in Requests)
           {
-            _iter116.Write(oprot);
+            _iter173.Write(oprot);
           }
           oprot.WriteListEnd();
         }
@@ -131,13 +127,13 @@ public partial class ChoiceResponse : TBase
   }
 
   public override string ToString() {
-    StringBuilder __sb = new StringBuilder("ChoiceResponse(");
+    StringBuilder __sb = new StringBuilder("AutocompleteRequestBundle(");
     bool __first = true;
-    if (Variants != null && __isset.variants) {
+    if (Requests != null && __isset.requests) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("Variants: ");
-      __sb.Append(Variants);
+      __sb.Append("Requests: ");
+      __sb.Append(Requests);
     }
     __sb.Append(")");
     return __sb.ToString();

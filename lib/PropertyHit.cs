@@ -16,54 +16,51 @@ using Thrift.Protocol;
 using Thrift.Transport;
 
 
-/// <summary>
-/// unique identifier of the customer
-/// </summary>
 #if !SILVERLIGHT
 [Serializable]
 #endif
-public partial class UserRecord : TBase
+public partial class PropertyHit : TBase
 {
-  private string _username;
-  private string _apiKey;
-  private string _apiSecret;
+  private string _value;
+  private string _label;
+  private long _totalHitCount;
 
-  public string Username
+  public string Value
   {
     get
     {
-      return _username;
+      return _value;
     }
     set
     {
-      __isset.username = true;
-      this._username = value;
+      __isset.@value = true;
+      this._value = value;
     }
   }
 
-  public string ApiKey
+  public string Label
   {
     get
     {
-      return _apiKey;
+      return _label;
     }
     set
     {
-      __isset.apiKey = true;
-      this._apiKey = value;
+      __isset.label = true;
+      this._label = value;
     }
   }
 
-  public string ApiSecret
+  public long TotalHitCount
   {
     get
     {
-      return _apiSecret;
+      return _totalHitCount;
     }
     set
     {
-      __isset.apiSecret = true;
-      this._apiSecret = value;
+      __isset.totalHitCount = true;
+      this._totalHitCount = value;
     }
   }
 
@@ -73,12 +70,12 @@ public partial class UserRecord : TBase
   [Serializable]
   #endif
   public struct Isset {
-    public bool username;
-    public bool apiKey;
-    public bool apiSecret;
+    public bool @value;
+    public bool label;
+    public bool totalHitCount;
   }
 
-  public UserRecord() {
+  public PropertyHit() {
   }
 
   public void Read (TProtocol iprot)
@@ -96,23 +93,23 @@ public partial class UserRecord : TBase
         }
         switch (field.ID)
         {
-          case 1:
+          case 11:
             if (field.Type == TType.String) {
-              Username = iprot.ReadString();
+              Value = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
-          case 10:
+          case 21:
             if (field.Type == TType.String) {
-              ApiKey = iprot.ReadString();
+              Label = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
-          case 20:
-            if (field.Type == TType.String) {
-              ApiSecret = iprot.ReadString();
+          case 31:
+            if (field.Type == TType.I64) {
+              TotalHitCount = iprot.ReadI64();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -135,31 +132,31 @@ public partial class UserRecord : TBase
     oprot.IncrementRecursionDepth();
     try
     {
-      TStruct struc = new TStruct("UserRecord");
+      TStruct struc = new TStruct("PropertyHit");
       oprot.WriteStructBegin(struc);
       TField field = new TField();
-      if (Username != null && __isset.username) {
-        field.Name = "username";
+      if (Value != null && __isset.@value) {
+        field.Name = "value";
         field.Type = TType.String;
-        field.ID = 1;
+        field.ID = 11;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(Username);
+        oprot.WriteString(Value);
         oprot.WriteFieldEnd();
       }
-      if (ApiKey != null && __isset.apiKey) {
-        field.Name = "apiKey";
+      if (Label != null && __isset.label) {
+        field.Name = "label";
         field.Type = TType.String;
-        field.ID = 10;
+        field.ID = 21;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(ApiKey);
+        oprot.WriteString(Label);
         oprot.WriteFieldEnd();
       }
-      if (ApiSecret != null && __isset.apiSecret) {
-        field.Name = "apiSecret";
-        field.Type = TType.String;
-        field.ID = 20;
+      if (__isset.totalHitCount) {
+        field.Name = "totalHitCount";
+        field.Type = TType.I64;
+        field.ID = 31;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(ApiSecret);
+        oprot.WriteI64(TotalHitCount);
         oprot.WriteFieldEnd();
       }
       oprot.WriteFieldStop();
@@ -172,25 +169,25 @@ public partial class UserRecord : TBase
   }
 
   public override string ToString() {
-    StringBuilder __sb = new StringBuilder("UserRecord(");
+    StringBuilder __sb = new StringBuilder("PropertyHit(");
     bool __first = true;
-    if (Username != null && __isset.username) {
+    if (Value != null && __isset.@value) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("Username: ");
-      __sb.Append(Username);
+      __sb.Append("Value: ");
+      __sb.Append(Value);
     }
-    if (ApiKey != null && __isset.apiKey) {
+    if (Label != null && __isset.label) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("ApiKey: ");
-      __sb.Append(ApiKey);
+      __sb.Append("Label: ");
+      __sb.Append(Label);
     }
-    if (ApiSecret != null && __isset.apiSecret) {
+    if (__isset.totalHitCount) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("ApiSecret: ");
-      __sb.Append(ApiSecret);
+      __sb.Append("TotalHitCount: ");
+      __sb.Append(TotalHitCount);
     }
     __sb.Append(")");
     return __sb.ToString();

@@ -16,85 +16,65 @@ using Thrift.Protocol;
 using Thrift.Transport;
 
 
-/// <summary>
-/// <dl>
-/// <dt>indexId</dt>
-/// <dd>id of the index to fetch context item data from</dd>
-/// 
-/// <dt>fieldName</dt>
-/// <dd>the field name of the item's unique identifier within the items index</dd>
-/// <dd>for example: 'sku' for items 'products'</dd>
-/// 
-/// <dt>contextItemId</dt>
-/// <dd>actual item's identifier</dd>
-/// <dd>for example: actual sku of the product</dd>
-/// 
-/// <dt>role</dt>
-/// <dd>role of the item within the context, used to address the item in the
-/// recommendation script.</dd>
-/// <dd>for example: 'main product' for recommendations within product detail
-/// page</dd>
-/// </dl>
-/// </summary>
 #if !SILVERLIGHT
 [Serializable]
 #endif
-public partial class ContextItem : TBase
+public partial class AuthEntry : TBase
 {
-  private string _indexId;
-  private string _fieldName;
-  private string _contextItemId;
-  private string _role;
+  private string _username;
+  private string _apiKey;
+  private string _apiSecret;
+  private List<string> _solrIndexPatterns;
 
-  public string IndexId
+  public string Username
   {
     get
     {
-      return _indexId;
+      return _username;
     }
     set
     {
-      __isset.indexId = true;
-      this._indexId = value;
+      __isset.username = true;
+      this._username = value;
     }
   }
 
-  public string FieldName
+  public string ApiKey
   {
     get
     {
-      return _fieldName;
+      return _apiKey;
     }
     set
     {
-      __isset.fieldName = true;
-      this._fieldName = value;
+      __isset.apiKey = true;
+      this._apiKey = value;
     }
   }
 
-  public string ContextItemId
+  public string ApiSecret
   {
     get
     {
-      return _contextItemId;
+      return _apiSecret;
     }
     set
     {
-      __isset.contextItemId = true;
-      this._contextItemId = value;
+      __isset.apiSecret = true;
+      this._apiSecret = value;
     }
   }
 
-  public string Role
+  public List<string> SolrIndexPatterns
   {
     get
     {
-      return _role;
+      return _solrIndexPatterns;
     }
     set
     {
-      __isset.role = true;
-      this._role = value;
+      __isset.solrIndexPatterns = true;
+      this._solrIndexPatterns = value;
     }
   }
 
@@ -104,13 +84,13 @@ public partial class ContextItem : TBase
   [Serializable]
   #endif
   public struct Isset {
-    public bool indexId;
-    public bool fieldName;
-    public bool contextItemId;
-    public bool role;
+    public bool username;
+    public bool apiKey;
+    public bool apiSecret;
+    public bool solrIndexPatterns;
   }
 
-  public ContextItem() {
+  public AuthEntry() {
   }
 
   public void Read (TProtocol iprot)
@@ -128,30 +108,40 @@ public partial class ContextItem : TBase
         }
         switch (field.ID)
         {
-          case 1:
+          case 11:
             if (field.Type == TType.String) {
-              IndexId = iprot.ReadString();
+              Username = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
-          case 2:
+          case 21:
             if (field.Type == TType.String) {
-              FieldName = iprot.ReadString();
+              ApiKey = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
-          case 3:
+          case 31:
             if (field.Type == TType.String) {
-              ContextItemId = iprot.ReadString();
+              ApiSecret = iprot.ReadString();
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
             break;
-          case 4:
-            if (field.Type == TType.String) {
-              Role = iprot.ReadString();
+          case 41:
+            if (field.Type == TType.List) {
+              {
+                SolrIndexPatterns = new List<string>();
+                TList _list19 = iprot.ReadListBegin();
+                for( int _i20 = 0; _i20 < _list19.Count; ++_i20)
+                {
+                  string _elem21;
+                  _elem21 = iprot.ReadString();
+                  SolrIndexPatterns.Add(_elem21);
+                }
+                iprot.ReadListEnd();
+              }
             } else { 
               TProtocolUtil.Skip(iprot, field.Type);
             }
@@ -174,39 +164,46 @@ public partial class ContextItem : TBase
     oprot.IncrementRecursionDepth();
     try
     {
-      TStruct struc = new TStruct("ContextItem");
+      TStruct struc = new TStruct("AuthEntry");
       oprot.WriteStructBegin(struc);
       TField field = new TField();
-      if (IndexId != null && __isset.indexId) {
-        field.Name = "indexId";
+      if (Username != null && __isset.username) {
+        field.Name = "username";
         field.Type = TType.String;
-        field.ID = 1;
+        field.ID = 11;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(IndexId);
+        oprot.WriteString(Username);
         oprot.WriteFieldEnd();
       }
-      if (FieldName != null && __isset.fieldName) {
-        field.Name = "fieldName";
+      if (ApiKey != null && __isset.apiKey) {
+        field.Name = "apiKey";
         field.Type = TType.String;
-        field.ID = 2;
+        field.ID = 21;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(FieldName);
+        oprot.WriteString(ApiKey);
         oprot.WriteFieldEnd();
       }
-      if (ContextItemId != null && __isset.contextItemId) {
-        field.Name = "contextItemId";
+      if (ApiSecret != null && __isset.apiSecret) {
+        field.Name = "apiSecret";
         field.Type = TType.String;
-        field.ID = 3;
+        field.ID = 31;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(ContextItemId);
+        oprot.WriteString(ApiSecret);
         oprot.WriteFieldEnd();
       }
-      if (Role != null && __isset.role) {
-        field.Name = "role";
-        field.Type = TType.String;
-        field.ID = 4;
+      if (SolrIndexPatterns != null && __isset.solrIndexPatterns) {
+        field.Name = "solrIndexPatterns";
+        field.Type = TType.List;
+        field.ID = 41;
         oprot.WriteFieldBegin(field);
-        oprot.WriteString(Role);
+        {
+          oprot.WriteListBegin(new TList(TType.String, SolrIndexPatterns.Count));
+          foreach (string _iter22 in SolrIndexPatterns)
+          {
+            oprot.WriteString(_iter22);
+          }
+          oprot.WriteListEnd();
+        }
         oprot.WriteFieldEnd();
       }
       oprot.WriteFieldStop();
@@ -219,31 +216,31 @@ public partial class ContextItem : TBase
   }
 
   public override string ToString() {
-    StringBuilder __sb = new StringBuilder("ContextItem(");
+    StringBuilder __sb = new StringBuilder("AuthEntry(");
     bool __first = true;
-    if (IndexId != null && __isset.indexId) {
+    if (Username != null && __isset.username) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("IndexId: ");
-      __sb.Append(IndexId);
+      __sb.Append("Username: ");
+      __sb.Append(Username);
     }
-    if (FieldName != null && __isset.fieldName) {
+    if (ApiKey != null && __isset.apiKey) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("FieldName: ");
-      __sb.Append(FieldName);
+      __sb.Append("ApiKey: ");
+      __sb.Append(ApiKey);
     }
-    if (ContextItemId != null && __isset.contextItemId) {
+    if (ApiSecret != null && __isset.apiSecret) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("ContextItemId: ");
-      __sb.Append(ContextItemId);
+      __sb.Append("ApiSecret: ");
+      __sb.Append(ApiSecret);
     }
-    if (Role != null && __isset.role) {
+    if (SolrIndexPatterns != null && __isset.solrIndexPatterns) {
       if(!__first) { __sb.Append(", "); }
       __first = false;
-      __sb.Append("Role: ");
-      __sb.Append(Role);
+      __sb.Append("SolrIndexPatterns: ");
+      __sb.Append(SolrIndexPatterns);
     }
     __sb.Append(")");
     return __sb.ToString();
