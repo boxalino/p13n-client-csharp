@@ -17,7 +17,9 @@
 # under the License.
 #
 
-THRIFTCODE= \
+SUBDIRS = . test/Multiplex
+
+THRIFTCODE = \
             src/Collections/THashSet.cs \
             src/Collections/TCollections.cs \
             src/Properties/AssemblyInfo.cs \
@@ -64,35 +66,40 @@ THRIFTCODE= \
             src/Transport/TTLSSocket.cs \
             src/Transport/TTLSServerSocket.cs \
             src/TProcessor.cs \
+            src/TProcessorFactory.cs \
+            src/TSingletonProcessorFactory.cs \
+            src/TPrototypeProcessorFactory.cs \
+            src/TControllingHandler.cs \
             src/TException.cs \
             src/TApplicationException.cs
 
-CSC=gmcs
+if MONO_MCS
+export CSC = mcs
+else
+export CSC = gmcs
+endif
 
 if NET_2_0
-MONO_DEFINES=/d:NET_2_0
+export CSC_DEFINES = -d:NET_2_0
 endif
 
 all-local: Thrift.dll
 
 Thrift.dll: $(THRIFTCODE)
-	$(CSC) $(THRIFTCODE) /out:Thrift.dll /target:library /reference:System.Web $(MONO_DEFINES)
+	$(CSC) $(CSC_DEFINES) -out:$@ -target:library -reference:System.Web $(THRIFTCODE)
 
 clean-local:
 	$(RM) Thrift.dll
-
-# run csharp tests?
-# check:
-# 	cd test/ThriftTest && ./maketest.sh
-# 	cd test/Multiplex && ./maketest.sh
 
 EXTRA_DIST = \
              $(THRIFTCODE) \
              ThriftMSBuildTask \
              src/Thrift.csproj \
+             src/Thrift.45.csproj \
              src/Thrift.sln \
-             src/Thrift.WP7.csproj \
-             src/Properties/AssemblyInfo.WP7.cs \
              src/Transport/TSilverlightSocket.cs \
+             src/Transport/THttpTaskAsyncHandler.cs \
+             src/TAsyncProcessor.cs \
              test \
+             coding_standards.md \
              README.md
