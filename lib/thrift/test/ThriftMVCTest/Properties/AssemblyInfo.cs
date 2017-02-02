@@ -18,21 +18,19 @@
  */
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Thrift.WP7")]
-[assembly: AssemblyDescription("C# bindings for the Apache Thrift RPC system")]
+[assembly: AssemblyTitle("ThriftMVCTest")]
+[assembly: AssemblyDescription("A web project for testing the thrift ASP.NET features.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The Apache Software Foundation")]
-[assembly: AssemblyProduct("Thrift")]
+[assembly: AssemblyProduct("ThriftMVCTest")]
 [assembly: AssemblyCopyright("The Apache Software Foundation")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-//@TODO where to put License information?
 
 // Setting ComVisible to false makes the types in this assembly not visible
 // to COM components.  If you need to access a type in this assembly from
@@ -40,7 +38,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a343f89c-57dd-4fa8-a9c6-35391cd5f655")]
+[assembly: Guid("366f9bd0-3c0e-48aa-b2ca-61fd4a93e427")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -51,5 +49,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("0.9.2.0")]
-[assembly: AssemblyFileVersion("0.9.2.0")]
+[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyFileVersion("1.0.0.1")]

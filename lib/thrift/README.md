@@ -1,8 +1,7 @@
 Thrift C# Software Library
-==========================
 
 License
--------
+=======
 
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements. See the NOTICE file
@@ -22,6 +21,6 @@ specific language governing permissions and limitations
 under the License.
 
 Using Thrift with C#
---------------------
+====================
 
 Thrift requires Mono >= 1.2.6 or .NET framework >= 3.5
