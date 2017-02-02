@@ -1,6 +1,5 @@
-namespace java   com.boxalino.p13n.api.thrift
-namespace php    com.boxalino.p13n.api.thrift
-namespace csharp com.boxalino.p13n.api.thrift
+namespace java com.boxalino.p13n.api.thrift
+namespace php  com.boxalino.p13n.api.thrift
 
 /**
  * Filter to be used in query. Note that type of generated filter depends on first non-null and non-empty value in order of preference. Values of lower priority are ignored:
